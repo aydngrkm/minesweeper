@@ -10,7 +10,7 @@ Welcome to Minesweeper with AI! This is a classic Minesweeper game with an added
 
 **Marking Mines:** If you suspect a square contains a mine, right-click on it to flag it.
 
-**Winning:** Clear all non-mine squares to win the game!
+**Winning:** Clear all non-mine squares and mark all mines to win the game!
 
 
 ## Using the AI Assistant
