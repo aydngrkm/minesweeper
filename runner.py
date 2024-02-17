@@ -50,7 +50,6 @@ lost = False
 instructions = True
 
 while True:
-
     # Check if game quit
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -60,7 +59,6 @@ while True:
 
     # Show game instructions
     if instructions:
-
         # Title
         title = largeFont.render("Play Minesweeper", True, WHITE)
         titleRect = title.get_rect()
