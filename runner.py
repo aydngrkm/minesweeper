@@ -105,7 +105,7 @@ while True:
         rules = [
             "Click a cell to reveal it.",
             "Right-click a cell to mark it as a mine.",
-            "Reveal all mine-free cells without opening a mine to win!"
+            "Reveal all non-mine cells without opening a mine to win!"
         ]
 
         for i, rule in enumerate(rules):
