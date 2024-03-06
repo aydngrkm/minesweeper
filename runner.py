@@ -84,6 +84,11 @@ def decideColor(game, i, j):
     elif nearby_mines == 8:
         return DARKGRAY
 
+with open("settings.txt", "r") as f:
+        bestTime = f.read()
+        if bestTime == "NULL":
+            bestTime = sys.maxsize
+
 while True:
 
     # Check if game quit
@@ -105,7 +110,7 @@ while True:
         rules = [
             "Click a cell to reveal it.",
             "Right-click a cell to mark it as a mine.",
-            "Reveal all non-mine cells without opening a mine to win!"
+            "Reveal all mine-free cells without opening a mine to win!"
         ]
 
         for i, rule in enumerate(rules):
@@ -215,6 +220,10 @@ while True:
                     break
         if won:
             text = "Won"
+            if timeSoFar < int(bestTime):
+                with open("settings.txt", "w") as f:
+                    f.write("")
+                    f.write(str(int(timeSoFar)))
         else:
             text = ""
     text = mediumFont.render(text, True, WHITE)
@@ -225,10 +234,15 @@ while True:
     # Display Time
     if not lost and not won:
         timeSoFar = time.time() - startTime
-    timer = mediumFont.render(f"Time: {timeSoFar: .0f}s", True, WHITE)
+    timer = mediumFont.render(f"Time: {int(timeSoFar)}s", True, WHITE)
     timerRect = timer.get_rect()
     timerRect.center = (5 * width / 6, textRect.bottom + 40)
     screen.blit(timer, timerRect)
+    if bestTime == sys.maxsize:
+        bestTimeText = smallFont.render(f"Best Time = NULL", True, WHITE)
+    else:
+        bestTimeText = smallFont.render(f"Best Time = {bestTime}s", True, WHITE)
+    screen.blit(bestTimeText, (5*width/6 - bestTimeText.get_width()/2, timerRect.bottom + 15))
 
     move = None
 
@@ -285,6 +299,10 @@ while True:
 
         # Reset game state
         elif resButton.collidepoint(mouse):
+            with open("settings.txt", "r") as f:
+                bestTime = f.read()
+                if bestTime == "NULL":
+                    bestTime = sys.maxsize
             game = Minesweeper(height=HEIGHT, width=WIDTH, mines=MINES)
             ai = MinesweeperAI(height=HEIGHT, width=WIDTH)
             revealed = set()
